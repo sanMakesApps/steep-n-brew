@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { getImageSources } from "../utils/getImageSources";
 
-const CategoryItem = ({ category }) => {
+const CatItem = ({ category }) => {
   const { avifUrl, jpgUrl } = getImageSources(category.imageUrl);
   return (
     <div className="relative overflow-hidden h-96 w-full rounded-sm group">
@@ -33,4 +33,4 @@ const CategoryItem = ({ category }) => {
   );
 };
 
-export default CategoryItem;
+export default CatItem;

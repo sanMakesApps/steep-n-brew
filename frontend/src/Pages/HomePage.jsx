@@ -1,7 +1,8 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import HeroSection from "../Components/HeroSection";
-import CategoryItem from "../components/CategoryItem";
+// import CatItem from "../components/CatItem";
+const CatItem = lazy(() => import("../Components/CatItem"));
 
 const ProductsFeatured = lazy(() => import("../Components/ProductsFeatured"));
 
@@ -61,7 +62,7 @@ const HomePage = () => {
         >
           <div className="grid sm:grid-cols-2  gap-2">
             {categories.map((category) => (
-              <CategoryItem category={category} key={category.name} />
+              <CatItem category={category} key={category.name} />
             ))}
           </div>
         </Suspense>
