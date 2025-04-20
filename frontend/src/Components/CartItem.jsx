@@ -1,7 +1,7 @@
 import { Minus, Plus, Trash } from "lucide-react";
 import { useCartStore } from "../stores/useCartStore";
 
-const CrtItem = ({ item }) => {
+const CartItem = ({ item }) => {
   const { removeFromCart, updateQuantity } = useCartStore();
 
   return (
@@ -60,4 +60,4 @@ const CrtItem = ({ item }) => {
     </div>
   );
 };
-export default CrtItem;
+export default CartItem;

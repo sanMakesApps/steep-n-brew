@@ -1,7 +1,8 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import HeroSection from "../Components/HeroSection";
-// import CatItem from "../components/CatItem";
+
+
 const CatItem = lazy(() => import("../Components/CatItem"));
 
 const ProductsFeatured = lazy(() => import("../Components/ProductsFeatured"));

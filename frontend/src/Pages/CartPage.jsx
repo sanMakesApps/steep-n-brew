@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 
-const CrtItem = lazy(() => import("../components/CrtItem"));
-const PeopleAlsoBought = lazy(() => import("../components/PeopleAlsoBought"));
-const OrderSummary = lazy(() => import("../components/OrderSummary"));
-const GiftCouponCard = lazy(() => import("../components/GiftCouponCard"));
+const CrtItem = lazy(() => import("../Components/CartItem"));
+const PeopleAlsoBought = lazy(() => import("../Components/PeopleAlsoBought"));
+const OrderSummary = lazy(() => import("../Components/OrderSummary"));
+const GiftCouponCard = lazy(() => import("../Components/GiftCouponCard"));
 
 import { Link } from "react-router-dom";
 import { useCartStore } from "../stores/useCartStore";

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProductCard from "../Components/ProductCard";
 import PageHeaders from "../Components/PageHeaders";
-// import ProductCard from "../components/ProductCard";
+
 const CategoryPage = () => {
   const { fetchProductsByCategory, products } = useProductStore();
 
