@@ -2,7 +2,6 @@ import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import User from "../models/user.model.js";
 
-//aggregation pipeline implementation [aggregating: total users, total products, total sales, total revenue]
 export const getAnalyticsData = async () => {
 	const totalUsers = await User.countDocuments();
 	const totalProducts = await Product.countDocuments();
@@ -10,9 +9,9 @@ export const getAnalyticsData = async () => {
 	const salesData = await Order.aggregate([
 		{
 			$group: {
-				_id: null, // to group all documents together
-				totalSales: { $sum: 1 }, // to calculate total sales by summing up all sales
-				totalRevenue: { $sum: "$totalAmount" }, // to calculate total revenue by summing up all revenues
+				_id: null, // it groups all documents together,
+				totalSales: { $sum: 1 },
+				totalRevenue: { $sum: "$totalAmount" },
 			},
 		},
 	]);
@@ -47,18 +46,6 @@ export const getDailySalesData = async (startDate, endDate) => {
 			},
 			{ $sort: { _id: 1 } },
 		]);
-
-		/**
-		 * dailySalesData format example
-		 * [
-		 * 	{
-		 * 		_id: "2024-08-18",
-		 * 		sales: 12,
-		 * 		revenue: 1450.75
-		 * 	},
-		 * ]
-		 */
-
 
 		const dateArray = getDatesInRange(startDate, endDate);
 		// console.log(dateArray) // ['2024-08-18', '2024-08-19', ... ]

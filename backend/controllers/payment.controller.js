@@ -13,7 +13,7 @@ export const createCheckoutSession = async (req, res) => {
 		let totalAmount = 0;
 
 		const lineItems = products.map((product) => {
-			const amount = Math.round(product.price * 100); //stripe requires amount to send in the format of cents
+			const amount = Math.round(product.price * 100); // stripe wants u to send in the format of cents
 			totalAmount += amount * product.quantity;
 
 			return {
@@ -36,7 +36,6 @@ export const createCheckoutSession = async (req, res) => {
 				totalAmount -= Math.round((totalAmount * coupon.discountPercentage) / 100);
 			}
 		}
-
 
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ["card"],
@@ -64,7 +63,7 @@ export const createCheckoutSession = async (req, res) => {
 			},
 		});
 
-		if (totalAmount >= 20000) { //Because we are working in cents so, this value is $200, [[Hardcoded value]] will be changed.
+		if (totalAmount >= 20000) {
 			await createNewCoupon(req.user._id);
 		}
 		res.status(200).json({ id: session.id, totalAmount: totalAmount / 100 });
@@ -96,7 +95,7 @@ export const checkoutSuccess = async (req, res) => {
 			const products = JSON.parse(session.metadata.products);
 			const newOrder = new Order({
 				user: session.metadata.userId,
-				products: products.map((product) => ({ //from product model.
+				products: products.map((product) => ({
 					product: product.id,
 					quantity: product.quantity,
 					price: product.price,
@@ -134,7 +133,7 @@ async function createNewCoupon(userId) {
 	const newCoupon = new Coupon({
 		code: "GIFT" + Math.random().toString(36).substring(2, 8).toUpperCase(),
 		discountPercentage: 10,
-		expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // expires in a month
+		expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
 		userId: userId,
 	});
 
