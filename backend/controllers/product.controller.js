@@ -21,7 +21,7 @@ export const getFeaturedProducts = async (req, res) => {
         //Check if we have anything in Redis.
         let featuredProducts = await redis.get("featured_products");
         if (featuredProducts) {
-            return res.json(parse(featuredProducts));
+            return res.json(JSON.parse(featuredProducts));
         }
 
         //if not in redis, fetch from mongodb.
@@ -30,7 +30,7 @@ export const getFeaturedProducts = async (req, res) => {
         featuredProducts = await Product.find({ isFeatured: true }).lean();
 
         if (!featuredProducts) {
-            return res.status(404).json({ message: "  No featured products found" });
+            return res.status(404).json({ message: "NO FEATURED PRODUCTS FOUND" });
 
         }
 
@@ -76,38 +76,32 @@ export const createProduct = async (req, res) => {
 }
 
 
-
 export const deleteProduct = async (req, res) => {
-
     try {
-        const product = await Product.findById(req.paras.id);
+        const product = await Product.findById(req.params.id);
 
         if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).json({ message: "PRODUCT NOT FOUND" });
         }
 
         if (product.image) {
-            //this gets the id of the image 
             const publicId = product.image.split("/").pop().split(".")[0];
-
             try {
-
                 await cloudinary.uploader.destroy(`products/${publicId}`);
-
+                console.log("DELETED IMAGE FROM CLOUDINARY");
             } catch (error) {
-                console.log("ERROR IN DELETING IMAGE FROM CLOUDINARY ", error.message);
+                console.log("ERROR IN DELETING IMAGE FROM CLOUDINARY", error);
             }
         }
 
         await Product.findByIdAndDelete(req.params.id);
-        res.json({ message: "Product deleted successfully" });
 
+        res.json({ message: "PRODUCT DELETED SUCCESSFULLY" });
     } catch (error) {
-        console.log('ERROR IN DELETE PRODUCT CONTROLLER ', error.message);
+        console.log("ERROR IN DELETE PRODUCT CONTROLLER ", error.message);
         res.status(500).json({ message: "SERVER ERROR", error: error.message });
     }
-
-}
+};
 
 
 export const getRecommendedProducts = async (req, res) => {
@@ -141,7 +135,7 @@ export const getProductsByCategory = async (req, res) => {
     const category = req.params.category;
     try {
         const products = await Product.find({ category });
-        res.json(products);
+        res.json({ products });
     } catch (error) {
         console.log('ERROR IN GET PRODUCTS BY CATEGORY CONTROLLER ', error.message);
         res.status(500).json({ message: "SERVER ERROR", error: error.message });
@@ -159,7 +153,7 @@ export const toggleFeaturedProduct = async (req, res) => {
             await updateFeaturedProductsCache();
             res.json(updatedProduct);
         } else {
-            res.status(404).json({ message: "Product not found" });
+            res.status(404).json({ message: "PRODUCT NOT FOUND" });
         }
     } catch (error) {
         console.log('ERROR IN TOGGLE FEATURED PRODUCT CONTROLLER ', error.message);
