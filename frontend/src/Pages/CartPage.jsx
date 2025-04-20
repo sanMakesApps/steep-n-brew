@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 
-const CartItem = lazy(() => import("../components/CartItem"));
+const CrtItem = lazy(() => import("../components/CrtItem"));
 const PeopleAlsoBought = lazy(() => import("../components/PeopleAlsoBought"));
 const OrderSummary = lazy(() => import("../components/OrderSummary"));
 const GiftCouponCard = lazy(() => import("../components/GiftCouponCard"));
@@ -14,7 +14,6 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 const CartPage = () => {
   const { cart } = useCartStore();
 
-  console.log("cart.length ", cart.length);
 
   return (
     <div className="py-8 md:py-16">
@@ -38,7 +37,7 @@ const CartPage = () => {
               >
                 <div className="space-y-6">
                   {cart.map((item) => (
-                    <CartItem key={item._id} item={item} />
+                    <CrtItem key={item._id} item={item} />
                   ))}
                 </div>
               </Suspense>
