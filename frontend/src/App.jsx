@@ -1,45 +1,69 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
-import SignUpPage from "./Pages/SignUpPage";
-import LoginPage from "./Pages/LoginPage";
+import { lazy, Suspense } from "react";
+
+const HomePage = lazy(() => import("./Pages/HomePage"));
+const SignUpPage = lazy(() => import("./Pages/SignUpPage"));
+const LoginPage = lazy(() => import("./Pages/LoginPage"));
+const AdminPage = lazy(() => import("./Pages/AdminPage"));
+const CategoryPage = lazy(() => import("./Pages/CategoryPage"));
+const CartPage = lazy(() => import("./Pages/CartPage"));
+const PurchaseSuccessPage = lazy(() => import("./Pages/PurchaseSuccessPage"));
+const PurchaseCancelPage = lazy(() => import("./Pages/PurchaseCancelPage"));
+
 import Navbar from "./Components/Navbar";
-import { Toaster } from "react-hot-toast";
-import useUserStore from "./stores/useUserStore";
-import { useEffect } from "react";
+
 import LoadingSpinner from "./Components/LoadingSpinner";
 
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import useInitializeUser from "./hooks/useInitializeUser";
+
 function App() {
-  const { user, checkAuth, checkingAuth } = useUserStore();
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
+  const { user, checkingAuth } = useInitializeUser();
   if (checkingAuth) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] text-gray-800 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.1)_0%,rgba(10,80,60,0.05)_45%,transparent_100%)]" />
-        </div>
-      </div>
-
-      <div className="relative z-50 pt-20">
+    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+      <div className="relative z-50 ">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/signup"
-            element={!user ? <SignUpPage /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/login"
-            element={!user ? <LoginPage /> : <Navigate to="/" />}
-          />
-        </Routes>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/signup"
+              element={!user ? <SignUpPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/login"
+              element={!user ? <LoginPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/secret-dashboard"
+              element={
+                user?.role === "admin" ? (
+                  <AdminPage />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route
+              path="/cart"
+              element={user ? <CartPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/purchase-success"
+              element={
+                user ? <PurchaseSuccessPage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/purchase-cancel"
+              element={user ? <PurchaseCancelPage /> : <Navigate to="/login" />}
+            />
+          </Routes>
+        </Suspense>
       </div>
-
       <Toaster />
     </div>
   );
