@@ -36,7 +36,6 @@ const CategoryPage = () => {
 
           {products?.map((product) => (
             <ProductCard key={product._id} product={product} />
-            // <span>PRODUCT</span>
           ))}
         </motion.div>
       </div>

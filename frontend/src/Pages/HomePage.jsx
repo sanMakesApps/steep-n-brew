@@ -1,17 +1,17 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import HeroSection from "../Components/HeroSection";
+import CategoryItem from "../components/CategoryItem";
 
 const ProductsFeatured = lazy(() => import("../Components/ProductsFeatured"));
-const CategoryItem = lazy(() => import("../components/CategoryItem"));
 
 const categories = [
   {
     href: "/coffees",
     name: "Coffee Beans & Blends",
-    imageUrl: "/coffee-category.jpg",
+    imageUrl: "/coffee-cat.jpg",
   },
-  { href: "/teas", name: "Artisan Tea", imageUrl: "/tea-category.jpg" },
+  { href: "/teas", name: "Artisan Tea", imageUrl: "/tea-cat.jpg" },
   {
     href: "/gears",
     name: "Brewing Gear",
