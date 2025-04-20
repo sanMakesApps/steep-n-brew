@@ -1,8 +1,8 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import HeroSection from "../Components/HeroSection";
-import FeaturedProducts from "../components/FeaturedProducts";
 
+const ProductsFeatured = lazy(() => import("../Components/ProductsFeatured"));
 const CategoryItem = lazy(() => import("../components/CategoryItem"));
 
 const categories = [
@@ -68,7 +68,15 @@ const HomePage = () => {
       </div>
 
       {!isLoading && products.length > 0 && (
-        <FeaturedProducts featuredProducts={products} />
+        <Suspense
+          fallback={
+            <div className="text-white text-center py-10">
+              Loading featured products...
+            </div>
+          }
+        >
+          <ProductsFeatured featProducts={products} />
+        </Suspense>
       )}
     </div>
   );
