@@ -22,15 +22,6 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
-
-console.log("authRoutes", authRoutes);         // should be a router
-console.log("productRoutes", productRoutes);
-console.log("cartRoutes", cartRoutes);
-console.log("couponRoutes", couponRoutes);
-console.log("paymentRoutes", paymentRoutes);
-console.log("analyticsRoutes", analyticsRoutes);
-
-
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
@@ -50,7 +41,7 @@ if (process.env.NODE_ENV === "production") {
 //     console.log("Server is running on http://localhost:" + PORT);
 //     connectDB();
 // });
-
+console.log(process.version);
 try {
     app.listen(PORT, () => {
         console.log("Server is running on http://localhost:" + PORT);
