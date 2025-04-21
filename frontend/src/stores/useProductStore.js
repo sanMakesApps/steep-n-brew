@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 import axios from "../lib/axios";
 
 const getOptimizedImageUrl = (url) => {
-    if (!url || !url.includes("/upload/")) return url; // If not from Cloudinary or invalid URL
-    return url.replace("/upload/", "/upload/f_auto,q_auto/");
+    if (!url || !url.includes("/upload/")) return url;
+    return url.replace("/upload/", "/upload/f_avif,q_auto/");
 };
 
 
@@ -54,7 +54,7 @@ export const useProductStore = create((set) => ({
             set({ products: response.data.products, loading: false });
         } catch (error) {
             set({ error: "Failed to fetch products", loading: false });
-            toast.error(error.response.data.error || "Failed to fetch products");
+            toast.error(error.response?.data?.error || "Failed to fetch products");
         }
     },
     deleteProduct: async (productId) => {
