@@ -1,4 +1,4 @@
-# ☕ Steep-n-Brew
+# Steep-n-Brew
 
 Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for coffee and tea enthusiasts. This project offers a curated shopping experience for hot beverages, with an integrated admin dashboard to manage products, monitor performance, and analyze sales.
 
