@@ -4,16 +4,16 @@ Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for co
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🛒 Customer Experience
+### Customer Experience
 - Browse curated **coffee and tea** collections
 - View detailed product pages with Cloudinary-hosted images
 - Add products to cart and checkout securely using **Stripe**
 - Mobile-friendly and responsive UI with smooth **framer-motion** animations
 - Toast notifications for real-time feedback (React Hot Toast)
 
-### 🧑‍💼 Admin Dashboard
+### Admin Dashboard
 - Add, edit, and delete products
 - View sales and analytics powered by **Recharts**
 - Manage store inventory in real-time
@@ -21,9 +21,9 @@ Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for co
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
-### 🔧 Backend
+### Backend
 - **Node.js** + **Express.js** – API and server setup
 - **MongoDB** + **Mongoose** – NoSQL database for storing users, products, and orders
 - **JWT** + **bcryptjs** – Secure authentication and password hashing
@@ -33,7 +33,7 @@ Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for co
 - **Cloudinary** – Store and manage product images
 - **dotenv** – Environment variable management
 
-### 🎨 Frontend
+### Frontend
 - **React 18** + **Vite** – Lightning-fast frontend architecture
 - **Tailwind CSS** – Utility-first CSS framework for styling
 - **Axios** – HTTP client for API requests
@@ -47,7 +47,7 @@ Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for co
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | Hero Section | Explore Categories | Category Items |
 |--------------|--------------------|----------------|
@@ -63,7 +63,7 @@ Welcome to **Steep-n-Brew** — a modern full-stack eCommerce application for co
 
 ---
 
-## 🧱 Folder Structure
+## Folder Structure
 
 ```bash
 steep-n-brew/
@@ -87,7 +87,7 @@ steep-n-brew/
 └── README.md
 ```
 
-## 📦 Installation
+## Installation
 Prerequisites:
 - Node.js (v18 recommended)
 - MongoDB Atlas URI
